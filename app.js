@@ -26,15 +26,17 @@
 		};
 	});
 
-	app.controller('UserController', function (UserService) {
+	app.controller('UserController', function (UserService, $log) {
 		var self = this;
 
 		self.users = [];
 
 		UserService.list().then(function (data) {
 			self.users = data.users;
+			$log.info('Tudo certo!');
+		}, function (result) {
+			$log.error('Erro');
 		});
-
 	});
 
 }());

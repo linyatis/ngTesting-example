@@ -1,5 +1,7 @@
 /**
+ *
  * UpperFilter
+ *
  */
 describe('Filter: Upper', function () {
 
@@ -27,20 +29,31 @@ describe('Filter: Upper', function () {
 });
 
 
+
 /**
+ *
  * UserController
+ *
  */
 describe("Controller: UserController", function () {
 	var ctrl;
 	var mockService;
 	var scope;
+	var log
 
 	beforeEach(module('app', function ($provide) {
 		mockService = {};
 		$provide.value('UserService', mockService);
 	}));
 
-	describe("Com erro no serviço", function () {
+	beforeEach(inject(function ($log) {
+		log = $log;
+
+		spyOn(log, 'info');
+		spyOn(log, 'error');
+	}));
+
+	describe("- com erro no serviço", function () {
 		beforeEach(inject(function ($q) {
 			mockService.list = function () {
 				var defer = $q.defer();
@@ -62,9 +75,13 @@ describe("Controller: UserController", function () {
 			var hasUsers = ctrl.users.length > 0;
 			expect(hasUsers).toBe(false);
 		});
+		it('deveria chamar log correto', function () {
+			expect(log.error).toHaveBeenCalled();
+			expect(log.info).not.toHaveBeenCalled();
+		});
 	});
 
-	describe("Com sucesso no serviço", function () {
+	describe("- com sucesso no serviço", function () {
 		beforeEach(inject(function ($q) {
 			mockService.list = function () {
 				var defer = $q.defer();
@@ -87,7 +104,6 @@ describe("Controller: UserController", function () {
 						}]
 				};
 
-
 				defer.resolve(data);
 
 				return defer.promise;
@@ -107,6 +123,10 @@ describe("Controller: UserController", function () {
 		it('deveria ter pelo menos 1 usuário', function () {
 			var hasUsers = ctrl.users.length > 0;
 			expect(hasUsers).toBe(true);
+		});
+		it('deveria chamar log correto', function () {
+			expect(log.info).toHaveBeenCalled();
+			expect(log.error).not.toHaveBeenCalled();
 		});
 	});
 });
