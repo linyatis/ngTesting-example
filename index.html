@@ -1,29 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html data-ng-app="app">
 
 <head>
 	<meta charset="utf-8" />
-	<title>AngularJS test</title>
+	<title>Minha App</title>
 
-	<link rel="stylesheet" href="libs/jasmine/jasmine.css" />
-
-	<!-- Jasmine -->
-	<script src="libs/jasmine/jasmine.js"></script>
-	<script src="libs/jasmine/jasmine-html.js"></script>
-	<script src="libs/jasmine/boot.js"></script>
-
-	<!-- Angular -->
-	<!-- Importar SEMPRE o angular antes do angular-mock -->
 	<script src="libs/angular/angular.js"></script>
-	<script src="libs/angular/angular-mocks.js"></script>
-
-	<!-- Nossas classes do projeto -->
 	<script src="app.js"></script>
-	<script src="appSpec.js"></script>
 
 </head>
 
-<body>
+<body data-ng-controller="UserController as ctrl">
+
+	<h1>Usuários</h1>
+	<ul>
+		<li data-ng-repeat="user in ctrl.users">
+			{{ user.name | upper:3 }}
+		</li>
+	</ul>
+
 </body>
 
 </html>
