@@ -19,7 +19,7 @@
 	app.factory('UserService', function ($http) {
 		return {
 			list: function () {
-				$http.get("/users/list").then(function (result) {
+				return $http.get("api/users.json").then(function (result) {
 					return result.data;
 				});
 			}
@@ -31,8 +31,8 @@
 
 		self.users = [];
 
-		UserService.list().then(function (result) {
-			self.users = result;
+		UserService.list().then(function (data) {
+			self.users = data.users;
 		});
 
 	});

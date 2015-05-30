@@ -68,23 +68,27 @@ describe("Controller: UserController", function () {
 		beforeEach(inject(function ($q) {
 			mockService.list = function () {
 				var defer = $q.defer();
+				var data = {
+					users: [{
+						id: 1,
+						name: 'Ederson'
+						}, {
+						id: 2,
+						name: 'Marcio'
+						}, {
+						id: 3,
+						name: 'Wiliam'
+						}, {
+						id: 4,
+						name: 'Thiago'
+						}, {
+						id: 5,
+						name: 'Filipe'
+						}]
+				};
 
-				defer.resolve([{
-					id: 1,
-					name: 'Ederson'
-				}, {
-					id: 2,
-					name: 'Marcio'
-				}, {
-					id: 3,
-					name: 'Wiliam (Alma gêmea)'
-				}, {
-					id: 4,
-					name: 'Thiago'
-				}, {
-					id: 5,
-					name: 'Filipe'
-				}]);
+
+				defer.resolve(data);
 
 				return defer.promise;
 			};
